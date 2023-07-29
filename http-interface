@@ -1,0 +1,92 @@
+1.控制摄像头的上下左右移动，镜头的放大和缩小
+方法：GET
+url: /api/sip/deviceControl/ptz
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+channelid       string       执行该指令的设备的通道ID
+direction       string       指定具体的ptz动作，可选值有up, down, left, right, zoomin, zoomout, upleft, upright, downleft, downright, stop  
+speed           int          指定执行动作的速度，取值范围为0-255
+
+成功: HTTP/1.1 200 OK
+
+
+2.控制摄像头的光圈放大或缩小，聚焦的远近
+方法：GET
+url: /api/sip/deviceControl/fi
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+channelid       string       执行该指令的设备的通道ID
+direction       string       指定具体的fi动作，可选值有IrisBig, IrisSmall, FocusFar, FocusNear
+speed           int          指定执行动作的速度，取值范围为0-255
+
+成功: HTTP/1.1 200 OK
+
+
+3.给摄像头发送invite指令拉流
+方法：GET
+url: /api/sip/deviceStream/invite
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+channelid       string       执行该指令的设备的通道ID
+
+成功: HTTP/1.1 200 OK
+
+
+4.给摄像头发送bye指令停止发流
+方法：GET
+url: /api/sip/deviceStream/bye
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+channelid       string       执行该指令的设备的通道ID
+
+成功: HTTP/1.1 200 OK
+
+
+5.给摄像头发送查询设备信息指令
+方法：GET
+url: /api/sip/deviceMessage/message
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+
+成功: HTTP/1.1 200 OK
+
+6.删除一个设备
+方法：GET
+url: /api/sip/deviceCurd/delete
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+
+成功: HTTP/1.1 200 OK
+
+7.重载配置文件
+方法：GET
+url: /api/sip/configure/reload
+参数:
+字段            类型         描述
+file            string       重载的配置文件名(设为conf即可)
+
+成功: HTTP/1.1 200 OK
+
+8.查看candidate的负载信息
+方法：GET
+url: /api/sip/candiadateMessage
+参数:
+字段            类型         描述
+identification  string       执行该指令的设备ID
+
+成功: HTTP/1.1 200 OK
+
+9.查看每一路流的信息(rtp)
+方法：GET
+url: /api/sip/deviceStream/message
+参数:
+字段            类型         描述
+deviceid        string       执行该指令的设备ID
+
+成功: HTTP/1.1 200 OK
