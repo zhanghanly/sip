@@ -510,6 +510,9 @@ CandidateSp CandidateService::distribute_stream_task(TaskSp task) {
 		}
 
 		CSessionSp session = find_min_stream_candidate();
+		if (!session) {
+			return nullptr;
+		}
 		session->stream_task[task->deviceid] = task;
 		candidate->public_ip = session->recv_rtp_public_ip;
 		candidate->recv_rtp_port = session->recv_rtp_port;
@@ -555,8 +558,8 @@ void CandidateService::cycle(void) {
         for (auto iter = rtp_candidates_.begin(); iter != rtp_candidates_.end();) {
             std::time_t now = get_system_timestamp();
             if (now - (iter->second)->keepalive_ts > (iter->second)->keepalive_timeout_interval) {
-				iter = rtp_candidates_.erase(iter);
 				spdlog::info("candiate {} timeout, remove it", iter->first);
+				iter = rtp_candidates_.erase(iter);
 			
 			} else {
                 iter++;

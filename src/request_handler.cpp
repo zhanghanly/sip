@@ -149,6 +149,10 @@ void request_handler::handle_request(const request& req, reply& rep) {
 		msg::CandidateSp candidate = msg::CandidateManager::instance()->query_stream_task(deviceid);
 		if (!candidate) {
 			candidate = msg::CandidateManager::instance()->start_stream_task(deviceid);
+			if (!candidate) {
+				rep = reply::stock_reply(reply::bad_request);
+				return;
+			}
 		}
 		sip::SipManager::instance()->send_invite(deviceid, deviceid, 
 			                                     candidate->public_ip, 
