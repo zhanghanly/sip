@@ -160,13 +160,18 @@ void request_handler::handle_request(const request& req, reply& rep) {
 
 		std::string http_flv_address = "http://";
 		http_flv_address += candidate->public_ip;
-		http_flv_address += "/";
+		http_flv_address += ":18080/yuexin/";
 		http_flv_address += deviceid;
 		http_flv_address += ".flv";
 		
+		std::string webrtc_address = "webrtc://";
+		webrtc_address += candidate->public_ip;
+		webrtc_address += "/yuexin/";
+		webrtc_address += deviceid;
+		
 		j["status"] = "successful";
 		j["http_flv"] = http_flv_address;
-		j["webrtc"] = http_flv_address;
+		j["webrtc"] = webrtc_address;
 
 		rep.status = reply::ok;
 		rep.content.append(j.dump().c_str(), j.dump().size());
