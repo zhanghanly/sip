@@ -907,6 +907,17 @@ bool SipService::is_session_online(const std::string& deviceid) {
     }
     return false;
 }
+    
+int SipService::online_session_nums() {
+    int nums = 0;
+    for (auto& session : sessions) {
+        if (is_session_online(session.first)) {
+            ++nums;
+        }
+    }
+
+    return nums;
+}
 
 //std::list<std::string> SipService::fetch_ready_invite_deviceid(void) {
 //	std::list<std::string> invite_device_lst;

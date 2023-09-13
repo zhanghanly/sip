@@ -25,6 +25,7 @@ public:
     void send_bye(const std::string&, const std::string&);
     void delete_device(const std::string&);
     /*online or offline*/
+    int query_online_device_nums();
     std::string query_device_status(const std::string&);
     std::string fetch_device_message(const std::string&);
 

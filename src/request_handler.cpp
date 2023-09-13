@@ -210,6 +210,21 @@ void request_handler::handle_request(const request& req, reply& rep) {
 		sip::SipManager::instance()->send_bye(deviceid, deviceid); 
 		msg::CandidateManager::instance()->stop_stream_running(deviceid);
 
+	} else if (result[0].find("/api/sip/onlineDeviceNums") != std::string::npos) { 
+		int nums = sip::SipManager::instance()->query_online_device_nums();
+
+		json j;
+		std::string deviceid = result[1];	
+		j["nums"] = std::to_string(nums); 
+
+		rep.status = reply::ok;
+		rep.content.append(j.dump().c_str(), j.dump().size());
+		rep.headers.resize(2);
+		rep.headers[0].name = "Content-Length";
+		rep.headers[0].value = std::to_string(rep.content.size());
+		rep.headers[1].name = "Content-Type";
+		rep.headers[1].value = "application/json";
+	
 	} else if (result[0].find("/api/sip/candidateMessage/") != std::string::npos) {
 		//result = string_split(result[1], "=");
 		//if (result.size() != 2 || (result[0] != "identification" && result[0] != "IDENTIFICATION")) {

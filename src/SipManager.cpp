@@ -63,6 +63,10 @@ void SipManager::reload_conf_file() {
     ServerConfig::get_instance()->init_conf("../conf/server.conf");
 }
 
+int SipManager::query_online_device_nums() {
+    return sip_service_->online_session_nums();
+}
+
 std::string SipManager::query_device_status(const std::string& deviceid) {
     return sip_service_->is_session_online(deviceid) ? "online" : "offline";
 }

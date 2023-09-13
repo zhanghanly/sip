@@ -59,6 +59,7 @@ public:
     //bool query_sip_session(std::string sid,  SrsJsonArray* arr);
     //bool query_device_list(std::string sid,  SrsJsonArray* arr);
     bool is_session_online(const std::string&);
+    int online_session_nums();
 
 public:
     bool fetch_or_create_sip_session(std::shared_ptr<SipRequest> req,  std::shared_ptr<SipSession>& sip_session);
