@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-project(sip CXX)
+project(yuexin CXX)
 
 #c++11
 set(CMAKE_CXX_STANDARD 11)
@@ -41,8 +41,8 @@ include_directories(/usr/local/include/
 
 link_directories(${PROJECT_SOURCE_DIR}/thirdParty/lib)
 
-add_executable(sip_rtp ${src}) 
-target_link_libraries(sip_rtp
+add_executable(sip ${src}) 
+target_link_libraries(sip
                       spdlog  
                       hiredis 
                       alibabacloud-oss-cpp-sdk 
@@ -56,11 +56,11 @@ target_link_libraries(sip_rtp
                       pthread 
                       dl 
                       z 
-                      bz2
+                      #bz2
                       ssl_ciph
                       bio)
 
-install(TARGETS sip_rtp
-        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/sip_rtp/bin/)
+install(TARGETS sip
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/sip/bin/)
 install(DIRECTORY conf 
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/sip_rtp)
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/sip)
