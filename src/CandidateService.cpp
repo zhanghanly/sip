@@ -431,6 +431,12 @@ void CandidateService::on_udp_msg(std::string peer_ip, int peer_port, std::strin
 	std::string candidate = msg->identification;
 	if (msg->is_register()) {
 		spdlog::info("receive RTP_GEGISTER message id={}", msg->identification);
+		/*if candidate crash and register*/
+		if (rtp_candidates_.find(candidate) != rtp_candidates_.end()) {
+			for (auto& item : rtp_candidates_[candidate]->stream_task) {
+				sip::SipManager::instance()->send_bye(item.first, item.first);
+			}
+		}
 		/*the basic information of candidate*/
 		std::string recv_rtp_public_ip = msg->fetch_value("recv_rtp_public_ip");  
 		std::string recv_rtp_port = msg->fetch_value("recv_rtp_port");  
