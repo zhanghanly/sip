@@ -158,9 +158,11 @@ void request_handler::handle_request(const request& req, reply& rep) {
 			                                     candidate->public_ip, 
 												 candidate->recv_rtp_port);
 
-		std::string http_flv_address = "http://";
-		http_flv_address += candidate->public_ip;
-		http_flv_address += ":18080/yuexin/";
+		std::string http_flv_address = "https://media.yuexinguoji.com/";
+		//http_flv_address += candidate->public_ip;
+		http_flv_address += "media1/";
+		//http_flv_address += ":18081/yuexin/";
+		http_flv_address += "yuexin/";
 		http_flv_address += deviceid;
 		http_flv_address += ".flv";
 		
