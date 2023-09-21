@@ -517,6 +517,7 @@ CandidateSp CandidateService::distribute_stream_task(TaskSp task) {
 
 		CSessionSp session = find_min_stream_candidate();
 		if (!session) {
+			spdlog::error("not found candidate for deviceid={}", task->deviceid);
 			return nullptr;
 		}
 		session->stream_task[task->deviceid] = task;
@@ -524,6 +525,8 @@ CandidateSp CandidateService::distribute_stream_task(TaskSp task) {
 		candidate->recv_rtp_port = session->recv_rtp_port;
 		candidate->flv_port = session->http_flv_port;
 		candidate->webrtc_port = session->webrtc_port;
+
+		spdlog::info("found candidate={} for deviceid={}", candidate->public_ip, task->deviceid);
 	}
 
 	return candidate;
@@ -553,6 +556,8 @@ void CandidateService::stop_stream_task(const std::string& deviceid) {
 	for (auto& item : rtp_candidates_) {
 		auto iter = item.second->stream_task.find(deviceid);
 		if (iter != item.second->stream_task.end()) {
+			spdlog::info("delete deviceid={} from candidate={}", 
+			             deviceid, item.second->recv_rtp_public_ip);
 			item.second->stream_task.erase(iter);
 		}
 	}

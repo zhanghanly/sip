@@ -26,9 +26,7 @@ CandidateSp CandidateManager::query_stream_task(const std::string& deviceid) {
 }
 
 void CandidateManager::stop_stream_running(const std::string& deviceid) {
-
-
-
+    return service_->stop_stream_task(deviceid);
 }
 
 

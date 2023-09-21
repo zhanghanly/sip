@@ -150,13 +150,14 @@ void request_handler::handle_request(const request& req, reply& rep) {
 		if (!candidate) {
 			candidate = msg::CandidateManager::instance()->start_stream_task(deviceid);
 			if (!candidate) {
+				spdlog::error("start stream task failed, deviceid={}", deviceid);
 				rep = reply::stock_reply(reply::bad_request);
 				return;
 			}
+			sip::SipManager::instance()->send_invite(deviceid, deviceid, 
+													 candidate->public_ip, 
+													 candidate->recv_rtp_port);
 		}
-		sip::SipManager::instance()->send_invite(deviceid, deviceid, 
-			                                     candidate->public_ip, 
-												 candidate->recv_rtp_port);
 
 		std::string http_flv_address = "https://media.yuexinguoji.com/";
 		//http_flv_address += candidate->public_ip;
